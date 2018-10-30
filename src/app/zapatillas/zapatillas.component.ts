@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Zapatilla } from '../models/zapatilla';
+import { ZapatillaService } from '../services/zapatilla.service';
 
 @Component({
 	selector: 'zapatillas',
-	templateUrl: './zapatillas.component.html'
+	templateUrl: './zapatillas.component.html',
+	providers: [
+		ZapatillaService
+	]
 })
 
 export class ZapatillasComponent implements OnInit {
@@ -14,21 +18,15 @@ export class ZapatillasComponent implements OnInit {
 	public color: string;
 	public mi_marca: string;
 
-	constructor(){
+	constructor(private _zapatillaService: ZapatillaService){
 		this.mi_marca = 'Fox';
 		this.color = 'blue';
-		this.marcas = new Array;
-		this.zapatillas = [
-			new Zapatilla('Nike Airmax', 'Nike', 'Rojo', 190, true),
-			new Zapatilla('Reebok Classic', 'Reebook', 'Blanco', 80, true),
-			new Zapatilla('Reebook Spartan', 'Reebook', 'Negro', 175, false),
-			new Zapatilla('Nike Runner MD', 'Nike', 'Negro', 60, true),
-			new Zapatilla('Adidas Yezzy', 'Adidas', 'Gris', 180, false),
-		];
+		this.marcas = new Array;		
 	}
 
 	public ngOnInit(){
-		console.log(this.zapatillas);
+		this.zapatillas = this._zapatillaService.getZapatillas();
+		//alert(this._zapatillaService.getTexto());
 		this.getMarcas();
 	}
 
